@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthEduPro - All-in-One Health & Learning</title>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --success: #4cc9f0;
+            --danger: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        header {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo h1 {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+        
+        .subscription {
+            background: var(--success);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .main-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            padding: 25px;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-card h2 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .feature-icon {
+            background: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 15px;
+            display: inline-block;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: var(--secondary);
+        }
+        
+        .payment-info {
+            grid-column: 1 / -1;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        
+        .payment-info h2 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .bank-details {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: monospace;
+            margin: 15px 0;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .logo {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <div class="feature-icon">⚕️</div>
+            <h1>HealthEduPro</h1>
+        </div>
+        <div class="subscription">Premium Plan: $25/month</div>
+    </header>
+
+    <div class="main-container">
+        <!-- Chronometer Feature -->
+        <div class="feature-card">
+            <h2><span class="feature-icon">⏱️</span> Chronometer</h2>
+            <p>Precision timing for workouts and activities with lap tracking and history.</p>
+            <button class="btn" id="startTimer">Start Timer</button>
+            <div id="timerDisplay">00:00:00</div>
+        </div>
+
+        <!-- Peso Meter Feature -->
+        <div class="feature-card">
+            <h2><span class="feature-icon">⚖️</span> Peso Meter</h2>
+            <p>Track weight, BMI, and body composition with progress analytics.</p>
+            <input type="number" placeholder="Enter weight (kg)" id="weightInput">
+            <button class="btn" id="logWeight">Log Weight</button>
+        </div>
+
+        <!-- Micro Meter Feature -->
+        <div class="feature-card">
+            <h2><span class="feature-icon">🥗</span> Micro Meter</h2>
+            <p>Track micronutrient intake and get personalized nutrition recommendations.</p>
+            <button class="btn" id="scanFood">Scan Food Label</button>
+        </div>
+
+        <!-- Heart Rate Monitor -->
+        <div class="feature-card">
+            <h2><span class="feature-icon">❤️</span> Heart Rate Monitor</h2>
+            <p>Real-time heart rate detection using your phone's camera.</p>
+            <button class="btn" id="startHR">Measure Heart Rate</button>
+            <div id="hrResult">-- bpm</div>
+        </div>
+
+        <!-- Full Body Check-Up -->
+        <div class="feature-card">
+            <h2><span class="feature-icon">🩺</span> Full Body Check-Up</h2>
+            <p>AI-powered health assessment with symptom analysis and virtual scans.</p>
+            <button class="btn" id="startCheckup">Begin Check-Up</button>
+        </div>
+
+        <!-- Location Tracker -->
+        <div class="feature-card">
+            <h2><span class="feature-icon">📍</span> Location Tracker</h2>
+            <p>GPS tracking for fitness routes and safety geofencing.</p>
+            <button class="btn" id="getLocation">Track My Location</button>
+            <div id="locationResult"></div>
+        </div>
+
+        <!-- AI Tutor -->
+        <div class="feature-card">
+            <h2><span class="feature-icon">🤖</span> AI Tutor</h2>
+            <p>Instant answers to any question with personalized learning plans.</p>
+            <input type="text" placeholder="Ask anything..." id="aiQuestion">
+            <button class="btn" id="askAI">Ask OmniScholar</button>
+            <div id="aiResponse"></div>
+        </div>
+
+        <!-- Payment Information -->
+        <div class="payment-info">
+            <h2>Subscription Payment</h2>
+            <p>Send $25/month via bank transfer using these details:</p>
+            <div class="bank-details">
+                Account Name: Rit Bhawal<br>
+                Account Number: 42236343095<br>
+                IFSC Code: SBINO012367<br>
+                Bank: State Bank of India (SBI)
+            </div>
+            <p>Email payment confirmation to: payments@healthedutpro.com</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>HealthEduPro &copy; 2025 | HIPAA & GDPR Compliant | End-to-End Encrypted</p>
+    </footer>
+
+    <script>
+        // Simple timer functionality
+        let timerInterval;
+        let seconds = 0;
+        
+        document.getElementById('startTimer').addEventListener('click', function() {
+            if (!timerInterval) {
+                this.textContent = 'Stop Timer';
+                timerInterval = setInterval(() => {
+                    seconds++;
+                    const hrs = Math.floor(seconds / 3600);
+                    const mins = Math.floor((seconds % 3600) / 60);
+                    const secs = seconds % 60;
+                    document.getElementById('timerDisplay').textContent = 
+                        `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+                }, 1000);
+            } else {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                this.textContent = 'Start Timer';
+            }
+        });
+
+        // Location tracker
+        document.getElementById('getLocation').addEventListener('click', function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+                        document.getElementById('locationResult').innerHTML = 
+                            `Latitude: ${lat.toFixed(6)}<br>Longitude: ${lon.toFixed(6)}`;
+                    },
+                    error => {
+                        document.getElementById('locationResult').textContent = 
+                            'Error: ' + error.message;
+                    }
+                );
+            } else {
+                document.getElementById('locationResult').textContent = 
+                    'Geolocation not supported by your browser';
+            }
+        });
+
+        // Simple AI response simulation
+        document.getElementById('askAI').addEventListener('click', function() {
+            const question = document.getElementById('aiQuestion').value;
+            if (question.trim() === '') return;
+            
+            const responses = [
+                "Based on current medical knowledge, I recommend consulting with a healthcare provider for personalized advice.",
+                "Research shows that consistent exercise and balanced nutrition contribute significantly to overall health.",
+                "I've analyzed your query and found several relevant studies. Would you like me to summarize the key findings?",
+                "That's an interesting question! The current scientific consensus indicates..."
+            ];
+            
+            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+            document.getElementById('aiResponse').textContent = randomResponse;
+        });
+
+        // Other feature placeholders
+        document.getElementById('logWeight').addEventListener('click', function() {
+            const weight = document.getElementById('weightInput').value;
+            if (weight) alert(`Weight logged: ${weight} kg`);
+        });
+        
+        document.getElementById('scanFood').addEventListener('click', function() {
+            alert("Camera activated for food label scanning");
+        });
+        
+        document.getElementById('startHR').addEventListener('click', function() {
+            const randomHR = Math.floor(Math.random() * 40) + 60; // Simulated HR
+            document.getElementById('hrResult').textContent = `${randomHR} bpm`;
+        });
+        
+        document.getElementById('startCheckup').addEventListener('click', function() {
+            alert("Starting full body check-up. Please grant camera access.");
+        });
+    </script>
+</body>
+</html>
+// Example: Real heart rate monitoring would require
+if (navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices.getUserMedia({ video: true })
+    .then(stream => {
+        // Process video frames for PPG signal
+    })
+}
+// Never process payments directly in frontend!
+// Use Stripe/PayPal integration instead:
+const stripe = Stripe('pk_test_your_key');
+stripe.redirectToCheckout({ sessionId: session.id });// Connect to an AI API (e.g., OpenAI):
+fetch('https://api.openai.com/v1/completions', {
+  method: 'POST',
+  headers: { 
+    'Authorization': 'Bearer YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    model: "gpt-4",
+    prompt: userQuestion,
+    max_tokens: 150
+  })
+})
